@@ -59,6 +59,8 @@ async function getRecipe() {
 
 //bygger upp sidan i DOM 
 function createRecipe(recipeData) {
+
+    //alla element som ska skapas
    const articleEl = document.createElement("article"); 
 
    const h3El = document.createElement("h3");
@@ -76,18 +78,20 @@ function createRecipe(recipeData) {
    const h4InstructionsEl = document.createElement("h4");
    const instructionListEl = document.createElement("ol");
 
+   //matchar rätt data med rätt element
     h3El.innerHTML = recipeData.name;
     imgEl.src = recipeData.image;
     imgEl.alt = recipeData.name;
 
     portionEl.innerHTML = "Servings: " + recipeData.servings;
     prepTimeEl.innerHTML = "Prep time: " + recipeData.prepTimeMinutes + " minutes";
-    cooktimeEl.innerHTML = "Tillagstid: " + recipeData.cookTimeMinutes + " minutes";
-    difficultyEl.innerHTML = "Svårighetsgrad: " + recipeData.difficulty;
+    cooktimeEl.innerHTML = "Cook Time: " + recipeData.cookTimeMinutes + " minutes";
+    difficultyEl.innerHTML = "Difficulty: " + recipeData.difficulty;
 
     h4ingredientsEl.innerHTML = "Ingredients";
     h4InstructionsEl.innerHTML = "Instructions";
 
+    //skapar list element för varje data som behövs
     recipeData.ingredients.forEach ( (ingredient) => {
         const li = document.createElement("li");
         li.textContent = ingredient;
@@ -100,15 +104,10 @@ function createRecipe(recipeData) {
         instructionListEl.appendChild(li);
     });
 
-   
-     recipeDivEl.style.display = "flex";
-     recipeDivEl.style.flexDirection = "row";
-     recipeDivEl.style.justifyContent = "space-between";
-     recipeDivEl.style.backgroundColor = "grey";
-     recipeDivEl.style.padding = "5px";
-     recipeDivEl.style.borderRadius = "5px";
-     recipeDivEl.style.fontWeight = "Bold";
-    
+    //tilldelar css class
+     recipeDivEl.classList.add("recipe-info");
+     
+     //bygger upp recept elementen
     articleEl.append(h3El, imgEl, recipeDivEl, h4ingredientsEl, ingredientListEl, h4InstructionsEl, instructionListEl);
 
     recipeDivEl.append(portionEl, prepTimeEl, cooktimeEl, difficultyEl);
