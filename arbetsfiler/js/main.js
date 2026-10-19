@@ -33,14 +33,6 @@ if (searchInput.value.trim() ===""){
 }
 }
 
-// visar felmeddelanden på sidan
-/*function displayErrors() {
-    if (data.recipes.length === 0) {
-        messageField.textContent = "Inga recept hittades, testa en annan sökning.";
-    } else {
-        messageField.textContent = "";
-    }
-}*/
 
 //hämatar recept från API
 async function getRecipe() {
