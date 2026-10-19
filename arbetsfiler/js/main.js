@@ -32,7 +32,13 @@ if (searchInput.value.trim() ===""){
 async function getRecipe() {
     try {
         const response = await fetch('https://dummyjson.com/recipes/search?q=' + searchInput.value);
+        
+        if (!response.ok) {
+            throw new Error("Serverfel: " + response.status);
+        }
+
         const data = await response.json();
+
          if (data.recipes.length === 0){
             messageField.textContent = "Inga recept hittades, testa en annan sökning.";
             
