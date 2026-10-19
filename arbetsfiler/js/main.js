@@ -33,7 +33,6 @@ if (searchInput.value.trim() ===""){
 }
 }
 
-
 //hämatar recept från API
 async function getRecipe() {
     try {
@@ -46,10 +45,9 @@ async function getRecipe() {
             
         }  else if (data.recipes.length > 0) {
             messageField.textContent = "";
-        
+            return data.recipes[0];
         }
-        
-    
+
     }catch (error) {    
         console.error(error);
         messageField.textContent = "Ett fel uppstod vid hämtning"
@@ -59,7 +57,38 @@ async function getRecipe() {
 }
 
 //bygger upp sidan i DOM 
-function createRecipe() {
+function createRecipe(recipeData) {
+   const articleEl = document.createElement("article"); 
+
+   const h3El = document.createElement("h3");
+   const imgEl = document.createElement("img");
+
+   const recipeDivEl = document.createElement("div");
+   const portionEl = document.createElement("p");
+   const prepTimeEl = document.createElement("p");
+   const cooktimeEl = document.createElement("p");
+   const difficultyEl = document.createElement("p");
+
+   const h4ingredientsEl = document.createElement("h4");
+   const ingredientListEl = document.createElement("ul");
+
+   const h4InstructionsEl = document.createElement("h4");
+   const instructionListEl = document.createElement("ol");
+
+    h3El.innerHTML = recipeData.name;
+    imgEl.src = recipeData.image;
+    imgEl.alt = recipeData.name;
+
+    portionEl.innerHTML = recipeData.servings;
+    prepTimeEl.innerHTML = recipeData.prepTimeMinutes;
+    cooktimeEl.innerHTML = recipeData.cookTimeMinutes;
+    difficultyEl.innerHTML = recipeData.difficulty;
+
+    h4ingredientsEl.innerHTML = "Ingredients";
+    ingredientListEl.innerHTML = recipeData.ingredients;
+
+    h4InstructionsEl.innerHTML = "Instructions";
+    instructionListEl.innerHTML = recipeData.instructions;
 
 }
 
@@ -68,11 +97,14 @@ function deleteRecipe() {
 
 }
 
-searchForm.addEventListener("submit", function (event) {
+searchForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
+    deleteRecipe();
+
     if(validateForm() === true) {
-       getRecipe();
+     const recipeData = await getRecipe();
+     createRecipe(recipeData);
       
        
     } 
