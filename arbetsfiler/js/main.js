@@ -23,6 +23,13 @@ let recipe = [];
 //funktion för validering av sökformulär
 function validateForm() {
 
+//kontrollerar ifall text skriven i submitfält
+if (searchInput.value.trim() ===""){
+    errorText.innerHTML = "ange det recept ni söker i sökfältet";
+} else  {
+    errorText.innerHTML = "";
+    return true;
+}
 }
 
 // visar felmeddelanden på sidan
@@ -42,10 +49,16 @@ function createRecipe() {
 
 //rensar förra recept från DOM
 function deleteRecipe() {
-    
+
 }
 
+searchForm.addEventListener("submit", function (event) {
+    event.preventDefault();
 
+    if(validateForm() === true) {
+        
+    }
+});
 
 
 
