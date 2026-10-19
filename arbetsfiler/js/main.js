@@ -7,7 +7,7 @@
 //hämta element från DOM
 const errorText = document.querySelector("#error");
 
-const searchForm = document.querySelector("#searchForm");
+const searchForm = document.querySelector("#searchform");
 const searchInput = document.querySelector("#search");
 
 const messageField = document.querySelector("#message");
@@ -19,6 +19,10 @@ let errors = [];
 
 //Array för recept
 let recipe = [];
+
+//funktion för recept-API
+
+async function getR
 
 
 
