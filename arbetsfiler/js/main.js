@@ -14,11 +14,6 @@ const messageField = document.querySelector("#message");
 
 const recipeList = document.querySelector("#recipe");
 
-//Array för felmeddelanden
-let errors = [];
-
-//Array för recept
-let recipe = [];
 
 //funktion för validering av sökformulär
 function validateForm() {
@@ -128,9 +123,10 @@ searchForm.addEventListener("submit", async function (event) {
     if(validateForm() === true) {
      deleteRecipe();
      const recipeData = await getRecipe();
-     createRecipe(recipeData);
-      
-       
+
+     if(recipeData !== undefined){
+        createRecipe(recipeData);
+     }
     } 
     
 });
