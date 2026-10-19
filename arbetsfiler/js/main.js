@@ -79,10 +79,10 @@ function createRecipe(recipeData) {
     imgEl.src = recipeData.image;
     imgEl.alt = recipeData.name;
 
-    portionEl.innerHTML = "Serveringar: " + recipeData.servings;
-    prepTimeEl.innerHTML = "Förberedelse tid: " recipeData.prepTimeMinutes;
-    cooktimeEl.innerHTML = "Tillagstid: "recipeData.cookTimeMinutes;
-    difficultyEl.innerHTML = "Svårighetsgrad: "recipeData.difficulty;
+    portionEl.innerHTML = "Servings: " + + recipeData.servings;
+    prepTimeEl.innerHTML = "Prep time: " + recipeData.prepTimeMinutes + "minutes";
+    cooktimeEl.innerHTML = "Tillagstid: " + recipeData.cookTimeMinutes + "minutes";
+    difficultyEl.innerHTML = "Svårighetsgrad: " + recipeData.difficulty;
 
     h4ingredientsEl.innerHTML = "Ingredients";
     h4InstructionsEl.innerHTML = "Instructions";
@@ -99,9 +99,16 @@ function createRecipe(recipeData) {
         instructionListEl.appendChild(li);
     });
 
-
+   
+     recipeDivEl.style.display = "flex";
+     recipeDivEl.style.flexDirection = "row";
+     recipeDivEl.style.justifyContent = "space-between";
+     recipeDivEl.style.backgroundColor = "grey";
+     recipeDivEl.style.padding = "5px";
+     recipeDivEl.style.borderRadius = "5px";
+     recipeDivEl.style.fontWeight = "Bold";
     
-    articleEl.append(h3El, imgEl, recipeDivEl, h4InstructionsEl, h4ingredientsEl, ingredientListEl, instructionListEl);
+    articleEl.append(h3El, imgEl, recipeDivEl, h4ingredientsEl, ingredientListEl, h4InstructionsEl, instructionListEl);
 
     recipeDivEl.append(portionEl, prepTimeEl, cooktimeEl, difficultyEl);
     
@@ -110,15 +117,16 @@ function createRecipe(recipeData) {
 
 //rensar förra recept från DOM
 function deleteRecipe() {
-
+   recipeList.replaceChildren();
 }
 
 searchForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    deleteRecipe();
+    
 
     if(validateForm() === true) {
+     deleteRecipe();
      const recipeData = await getRecipe();
      createRecipe(recipeData);
       
