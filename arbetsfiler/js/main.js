@@ -20,9 +20,30 @@ let errors = [];
 //Array för recept
 let recipe = [];
 
-//funktion för recept-API
+//funktion för validering av sökformulär
+function validateForm() {
 
-async function getR
+}
+
+// visar felmeddelanden på sidan
+function displayErrors() {
+
+}
+
+//hämatar recept från API
+async function getRecipe() {
+    
+}
+
+//bygger upp sidan i DOM 
+function createRecipe() {
+
+}
+
+//rensar förra recept från DOM
+function deleteRecipe() {
+    
+}
 
 
 
