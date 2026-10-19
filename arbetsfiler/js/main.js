@@ -25,7 +25,7 @@ function validateForm() {
 
 //kontrollerar ifall text skriven i submitfält
 if (searchInput.value.trim() ===""){
-    errorText.innerHTML = "ange det recept ni söker i sökfältet";
+    errorText.innerHTML = "Ange det recept ni söker i sökfältet";
 } else  {
     errorText.innerHTML = "";
     return true;
@@ -33,12 +33,29 @@ if (searchInput.value.trim() ===""){
 }
 
 // visar felmeddelanden på sidan
-function displayErrors() {
-
-}
+/* function displayErrors() {
+    if (data.recipes < 0) {
+        messageField.textContent = "Inga recept hittades, testa en annan sökning.";
+    } else {
+        messageField.textContent = "";
+    }
+}*/
 
 //hämatar recept från API
 async function getRecipe() {
+    try {
+        let response = await fetch('https://dummyjson.com/recipes/search?q=' + searchInput.value);
+        let data = await response.json();
+        console.log(data.recipes[0]);
+
+        return data.recipes[0];
+
+
+
+    } catch (error) {    
+        console.error(error);
+        messageField.innerHTML = "ett fel uppstod vid hämtning"
+    }
     
 }
 
@@ -56,6 +73,7 @@ searchForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
     if(validateForm() === true) {
+        getRecipe();
         
     }
 });
