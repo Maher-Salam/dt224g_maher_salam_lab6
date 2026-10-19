@@ -26,6 +26,7 @@ function validateForm() {
 //kontrollerar ifall text skriven i submitfält
 if (searchInput.value.trim() ===""){
     errorText.innerHTML = "Ange det recept ni söker i sökfältet";
+    return false;
 } else  {
     errorText.innerHTML = "";
     return true;
@@ -33,8 +34,8 @@ if (searchInput.value.trim() ===""){
 }
 
 // visar felmeddelanden på sidan
-/* function displayErrors() {
-    if (data.recipes < 0) {
+/*function displayErrors() {
+    if (data.recipes.length === 0) {
         messageField.textContent = "Inga recept hittades, testa en annan sökning.";
     } else {
         messageField.textContent = "";
@@ -44,17 +45,23 @@ if (searchInput.value.trim() ===""){
 //hämatar recept från API
 async function getRecipe() {
     try {
-        let response = await fetch('https://dummyjson.com/recipes/search?q=' + searchInput.value);
-        let data = await response.json();
-        console.log(data.recipes[0]);
-
-        return data.recipes[0];
-
-
-
-    } catch (error) {    
+        const response = await fetch('https://dummyjson.com/recipes/search?q=' + searchInput.value);
+        const data = await response.json();
+        console.log(data);
+        console.log(data.recipes);
+         if (data.recipes.length === 0){
+            messageField.textContent = "Inga recept hittades, testa en annan sökning.";
+            
+        }  else if (data.recipes.length > 0) {
+            messageField.textContent = "";
+        
+        }
+        
+    
+    }catch (error) {    
         console.error(error);
-        messageField.innerHTML = "ett fel uppstod vid hämtning"
+        messageField.textContent = "Ett fel uppstod vid hämtning"
+        return;
     }
     
 }
@@ -73,10 +80,10 @@ searchForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
     if(validateForm() === true) {
-        getRecipe();
-        
-    }
+       getRecipe();
+      
+       
+    } 
+    
 });
-
-
 
