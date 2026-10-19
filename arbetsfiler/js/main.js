@@ -38,19 +38,19 @@ async function getRecipe() {
     try {
         const response = await fetch('https://dummyjson.com/recipes/search?q=' + searchInput.value);
         const data = await response.json();
-        console.log(data);
-        console.log(data.recipes);
          if (data.recipes.length === 0){
             messageField.textContent = "Inga recept hittades, testa en annan sökning.";
             
         }  else if (data.recipes.length > 0) {
             messageField.textContent = "";
-            return data.recipes[0];
+            
         }
-
+        
+        return data.recipes[0];
+    
     }catch (error) {    
-        console.error(error);
-        messageField.textContent = "Ett fel uppstod vid hämtning"
+        console.error('Det uppstod ett fel:', error.message);
+        messageField.textContent = "Ett fel uppstod vid hämtning: " + error.message;
         return;
     }
     
@@ -79,17 +79,33 @@ function createRecipe(recipeData) {
     imgEl.src = recipeData.image;
     imgEl.alt = recipeData.name;
 
-    portionEl.innerHTML = recipeData.servings;
-    prepTimeEl.innerHTML = recipeData.prepTimeMinutes;
-    cooktimeEl.innerHTML = recipeData.cookTimeMinutes;
-    difficultyEl.innerHTML = recipeData.difficulty;
+    portionEl.innerHTML = "Serveringar: " + recipeData.servings;
+    prepTimeEl.innerHTML = "Förberedelse tid: " recipeData.prepTimeMinutes;
+    cooktimeEl.innerHTML = "Tillagstid: "recipeData.cookTimeMinutes;
+    difficultyEl.innerHTML = "Svårighetsgrad: "recipeData.difficulty;
 
     h4ingredientsEl.innerHTML = "Ingredients";
-    ingredientListEl.innerHTML = recipeData.ingredients;
-
     h4InstructionsEl.innerHTML = "Instructions";
-    instructionListEl.innerHTML = recipeData.instructions;
 
+    recipeData.ingredients.forEach ( (ingredient) => {
+        const li = document.createElement("li");
+        li.textContent = ingredient;
+        ingredientListEl.appendChild(li);
+    });
+
+    recipeData.instructions.forEach ( (instruction) => {
+        const li = document.createElement("li");
+        li.textContent = instruction;
+        instructionListEl.appendChild(li);
+    });
+
+
+    
+    articleEl.append(h3El, imgEl, recipeDivEl, h4InstructionsEl, h4ingredientsEl, ingredientListEl, instructionListEl);
+
+    recipeDivEl.append(portionEl, prepTimeEl, cooktimeEl, difficultyEl);
+    
+    recipeList.append(articleEl);
 }
 
 //rensar förra recept från DOM
