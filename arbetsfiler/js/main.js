@@ -80,9 +80,9 @@ function createRecipe(recipeData) {
     imgEl.src = recipeData.image;
     imgEl.alt = recipeData.name;
 
-    portionEl.innerHTML = "Servings: " + + recipeData.servings;
-    prepTimeEl.innerHTML = "Prep time: " + recipeData.prepTimeMinutes + "minutes";
-    cooktimeEl.innerHTML = "Tillagstid: " + recipeData.cookTimeMinutes + "minutes";
+    portionEl.innerHTML = "Servings: " + recipeData.servings;
+    prepTimeEl.innerHTML = "Prep time: " + recipeData.prepTimeMinutes + " minutes";
+    cooktimeEl.innerHTML = "Tillagstid: " + recipeData.cookTimeMinutes + " minutes";
     difficultyEl.innerHTML = "Svårighetsgrad: " + recipeData.difficulty;
 
     h4ingredientsEl.innerHTML = "Ingredients";
